@@ -14,13 +14,11 @@ import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Setter
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,4 +43,13 @@ public class Hero {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Phone> phones;
+
+	@Override
+	public String toString() {
+		return "Hero [id=" + id + ", name=" + name + ", heroName=" + heroName + ", heroIdentification="
+				+ heroIdentification + ", description=" + description + ", birthDate=" + birthDate + ", phones="
+				+ phones + "]";
+	}
+	
+	
 }

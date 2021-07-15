@@ -1,0 +1,12 @@
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\service\HeroService.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\HereosApiApplication.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\swagger\SwaggerConfig.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\model\Phone.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\mapper\HeroMapper.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\model\Hero.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\enums\PhoneType.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\dto\HeroDTO.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\dto\PhoneDTO.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\repository\HeroRepository.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\controller\HeroController.java
+C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\main\java\br\com\hereos\dto\MessageResponseDTO.java
