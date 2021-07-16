@@ -36,7 +36,7 @@ public class HeroController {
 //		this.heroService = heroService;
 //	}
 //	
-	@ApiOperation(value = "Cria uma Herói")
+	@ApiOperation(value = "Cria um Herói")
 	@ApiResponses(value = {
 	    @ApiResponse(code = 200, message = "Heroi criado com sucesso"),
 	    @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
