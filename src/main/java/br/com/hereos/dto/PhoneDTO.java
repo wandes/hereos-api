@@ -15,6 +15,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PhoneDTO {
 
 	private Long id;
