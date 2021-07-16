@@ -1,11 +1,11 @@
 package br.com.hereos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,41 +13,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.hereos.dto.HeroDTO;
-import br.com.hereos.dto.MessageResponseDTO;
+import br.com.hereos.dto.request.HeroRequestDTO;
+import br.com.hereos.dto.response.HeroResponseDTO;
 import br.com.hereos.exception.HeroNotFoundException;
-import br.com.hereos.model.Hero;
-import br.com.hereos.service.HeroService;
+import br.com.hereos.service.impl.HeroServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api/v1/hero")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Api(value = "Hero Controller")
+@Log4j2
 public class HeroController {
 
-	private HeroService heroService;
-
-//	@Autowired
-//	public HeroController(HeroService heroService) {
-//		this.heroService = heroService;
-//	}
-//	
+	private HeroServiceImpl heroService;
+	
 	@ApiOperation(value = "Cria um Herói")
 	@ApiResponses(value = {
 	    @ApiResponse(code = 200, message = "Heroi criado com sucesso"),
 	    @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
 	    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
+	
 	@RequestMapping( method =  RequestMethod.POST, produces="application/json", consumes="application/json")
-	public ResponseEntity<MessageResponseDTO> createHero(@RequestBody @Valid HeroDTO heroDto) {
+	public ResponseEntity<HeroResponseDTO> create(@RequestBody @Valid HeroRequestDTO heroDto) {
+		
+		HeroResponseDTO savedHero = heroService.create(heroDto);
+		
+		URI locationResource = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(savedHero.getId())
+				.toUri();
+		
+		log.info("Sucesso ao criar Hero com ID " + savedHero.getId());
 
-		Hero savedHero = heroService.createHero(heroDto);
-
-		return createMessageResponse("Heroi criado com sucesso", 200);
+		return ResponseEntity.created(locationResource).body(savedHero);
 
 	}
 	
@@ -58,9 +65,13 @@ public class HeroController {
 	    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	@RequestMapping(method =  RequestMethod.GET, produces="application/json", consumes="application/json")
-	public ResponseEntity<List<HeroDTO>> listAll() {
-		return new ResponseEntity<List<HeroDTO>>(heroService.listAll(), HttpStatus.CREATED);
+	//@RequestMapping(method =  RequestMethod.GET, produces="application/json", consumes="application/json")
+	@GetMapping
+	public ResponseEntity<List<HeroResponseDTO>> listAll(){
+		
+		log.info("Listando herois");
+		
+		return ResponseEntity.ok(heroService.listAll());
 	}
 	
 	@ApiOperation(value = "Pesquisa um heroi")
@@ -71,8 +82,9 @@ public class HeroController {
 	})
 	
 	@RequestMapping(value = "/{id}",method =  RequestMethod.GET, produces="application/json", consumes="application/json")
-	public  ResponseEntity<HeroDTO> findById(@PathVariable Long id) throws HeroNotFoundException{
-		return new ResponseEntity<HeroDTO>(heroService.findById(id), HttpStatus.CREATED);
+	public  ResponseEntity<HeroResponseDTO> findById(@PathVariable Long id) throws HeroNotFoundException{
+		log.info("Localizando heroi por Id" + id);
+		return ResponseEntity.ok().body(heroService.findById(id));
 	}
 	
 	@ApiOperation(value = "Exclui um heroi")
@@ -83,8 +95,9 @@ public class HeroController {
 	})
 	
 	@RequestMapping(value = "/{id}",method =  RequestMethod.DELETE, produces="application/json", consumes="application/json")
-	public  ResponseEntity deleteById(@PathVariable Long id) throws HeroNotFoundException{
+	public  ResponseEntity delete(@PathVariable Long id) throws HeroNotFoundException{
 		heroService.delete(id);
+		log.info("Sucesso em excluir heroi com Id" + id);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -96,15 +109,11 @@ public class HeroController {
 	})
 	
 	@RequestMapping(value = "/{id}",method =  RequestMethod.PUT, produces="application/json", consumes="application/json")
-	public  ResponseEntity<MessageResponseDTO> updateById(@PathVariable Long id, @RequestBody @Valid HeroDTO heroDTO) throws HeroNotFoundException{
+	public  ResponseEntity<HeroResponseDTO> update(@PathVariable Long id, @RequestBody @Valid HeroRequestDTO heroDTO) throws HeroNotFoundException{
 		
-		Hero savedHero = heroService.update(id, heroDTO);
-
-		return createMessageResponse("Heroi atualizado com sucesso", 201);
+		HeroResponseDTO heroUpdate = heroService.update(heroDTO, id);
+		log.info("Sucesso em atualizar heroi com Id" + id);
+		return ResponseEntity.ok(heroUpdate);
 	}
 
-	private ResponseEntity<MessageResponseDTO> createMessageResponse(String message, int statusCode) {
-		return new ResponseEntity<MessageResponseDTO>(MessageResponseDTO.builder()
-				.message(message).build(), HttpStatus.valueOf(statusCode));
-	}
 }

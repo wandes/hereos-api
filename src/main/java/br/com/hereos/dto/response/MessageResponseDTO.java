@@ -1,4 +1,4 @@
-package br.com.hereos.dto;
+package br.com.hereos.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
