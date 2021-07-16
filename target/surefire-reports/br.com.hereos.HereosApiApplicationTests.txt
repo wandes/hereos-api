@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.hereos.HereosApiApplicationTests
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.775 s - in br.com.hereos.HereosApiApplicationTests
-=======
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.471 s - in br.com.hereos.HereosApiApplicationTests
->>>>>>> refs/heads/dev
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.432 s - in br.com.hereos.HereosApiApplicationTests
