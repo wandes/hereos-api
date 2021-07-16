@@ -1,5 +1,6 @@
-package br.com.hereos.dto;
+package br.com.hereos.dto.request;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,14 +9,18 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeroDTO {
+public class HeroRequestDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 
@@ -36,7 +41,7 @@ public class HeroDTO {
 
 	@Valid
 	@NotEmpty
-	private List<PhoneDTO> phones;
+	private List<PhoneResquestDTO> phones;
 
 	@Override
 	public String toString() {

@@ -1,4 +1,4 @@
-package br.com.hereos.dto;
+package br.com.hereos.dto.request;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PhoneDTO {
+public class PhoneResquestDTO {
 
 	private Long id;
 	
