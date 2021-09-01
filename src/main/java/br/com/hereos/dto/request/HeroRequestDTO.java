@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import br.com.hereos.model.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,9 +19,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeroRequestDTO implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class HeroRequestDTO {
 
 	private Long id;
 
@@ -39,8 +38,8 @@ public class HeroRequestDTO implements Serializable {
 
 	private String birthDate;
 
-	@Valid
-	@NotEmpty
+	//@Valid
+	//@NotEmpty
 	private List<PhoneResquestDTO> phones;
 
 	@Override

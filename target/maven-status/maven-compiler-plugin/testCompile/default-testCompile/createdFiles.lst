@@ -1,1 +1,8 @@
-br\com\hereos\HereosApiApplicationTests.class
+br/com/hereos/controller/HeroControllerTest.class
+br/com/hereos/service/impl/HeroServiceImplTest.class
+br/com/hereos/HereosApiApplicationTests.class
+br/com/hereos/builder/HeroRequestDTOBuilder.class
+br/com/hereos/builder/HeroRequestDTOBuilder$HeroRequestDTOBuilderBuilder.class
+br/com/hereos/builder/HeroResponseDTOBuilder.class
+br/com/hereos/builder/HeroResponseDTOBuilder$HeroResponseDTOBuilderBuilder.class
+br/com/hereos/utils/JsonConvertionUtils.class

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HeroMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hereos-api</a> &gt; <a href="index.source.html" class="el_package">br.com.hereos.dto.mapper</a> &gt; <span class="el_source">HeroMapperImpl.java</span></div><h1>HeroMapperImpl.java</h1><pre class="source lang-java linenums">package br.com.hereos.dto.mapper;
+
+import br.com.hereos.dto.request.HeroRequestDTO;
+import br.com.hereos.dto.request.PhoneResquestDTO;
+import br.com.hereos.dto.response.HeroResponseDTO;
+import br.com.hereos.dto.response.PhoneResponseDTO;
+import br.com.hereos.model.Hero;
+import br.com.hereos.model.Phone;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2021-09-01T17:14:37-0300&quot;,
+    comments = &quot;version: 1.4.2.Final, compiler: javac, environment: Java 11.0.11 (Ubuntu)&quot;
+)
+@Component
+<span class="fc" id="L22">public class HeroMapperImpl implements HeroMapper {</span>
+
+    @Override
+    public Hero toModel(HeroRequestDTO heroRequestDTO) {
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if ( heroRequestDTO == null ) {</span>
+<span class="nc" id="L27">            return null;</span>
+        }
+
+<span class="fc" id="L30">        Hero hero = new Hero();</span>
+
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if ( heroRequestDTO.getBirthDate() != null ) {</span>
+<span class="fc" id="L33">            hero.setBirthDate( LocalDate.parse( heroRequestDTO.getBirthDate(), DateTimeFormatter.ofPattern( &quot;dd-MM-yyyy&quot; ) ) );</span>
+        }
+<span class="fc" id="L35">        hero.setId( heroRequestDTO.getId() );</span>
+<span class="fc" id="L36">        hero.setName( heroRequestDTO.getName() );</span>
+<span class="fc" id="L37">        hero.setHeroName( heroRequestDTO.getHeroName() );</span>
+<span class="fc" id="L38">        hero.setHeroIdentification( heroRequestDTO.getHeroIdentification() );</span>
+<span class="fc" id="L39">        hero.setDescription( heroRequestDTO.getDescription() );</span>
+<span class="fc" id="L40">        hero.setPhones( phoneResquestDTOListToPhoneList( heroRequestDTO.getPhones() ) );</span>
+
+<span class="fc" id="L42">        return hero;</span>
+    }
+
+    @Override
+    public HeroResponseDTO toDTO(Hero heroDTO) {
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if ( heroDTO == null ) {</span>
+<span class="nc" id="L48">            return null;</span>
+        }
+
+<span class="fc" id="L51">        HeroResponseDTO heroResponseDTO = new HeroResponseDTO();</span>
+
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if ( heroDTO.getBirthDate() != null ) {</span>
+<span class="fc" id="L54">            heroResponseDTO.setBirthDate( DateTimeFormatter.ofPattern( &quot;dd-MM-yyyy&quot; ).format( heroDTO.getBirthDate() ) );</span>
+        }
+<span class="fc" id="L56">        heroResponseDTO.setId( heroDTO.getId() );</span>
+<span class="fc" id="L57">        heroResponseDTO.setName( heroDTO.getName() );</span>
+<span class="fc" id="L58">        heroResponseDTO.setHeroName( heroDTO.getHeroName() );</span>
+<span class="fc" id="L59">        heroResponseDTO.setHeroIdentification( heroDTO.getHeroIdentification() );</span>
+<span class="fc" id="L60">        heroResponseDTO.setDescription( heroDTO.getDescription() );</span>
+<span class="fc" id="L61">        heroResponseDTO.setPhones( phoneListToPhoneResponseDTOList( heroDTO.getPhones() ) );</span>
+
+<span class="fc" id="L63">        return heroResponseDTO;</span>
+    }
+
+    protected Phone phoneResquestDTOToPhone(PhoneResquestDTO phoneResquestDTO) {
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if ( phoneResquestDTO == null ) {</span>
+<span class="nc" id="L68">            return null;</span>
+        }
+
+<span class="fc" id="L71">        Phone phone = new Phone();</span>
+
+<span class="fc" id="L73">        phone.setId( phoneResquestDTO.getId() );</span>
+<span class="fc" id="L74">        phone.setType( phoneResquestDTO.getType() );</span>
+<span class="fc" id="L75">        phone.setNumber( phoneResquestDTO.getNumber() );</span>
+
+<span class="fc" id="L77">        return phone;</span>
+    }
+
+    protected List&lt;Phone&gt; phoneResquestDTOListToPhoneList(List&lt;PhoneResquestDTO&gt; list) {
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L82">            return null;</span>
+        }
+
+<span class="fc" id="L85">        List&lt;Phone&gt; list1 = new ArrayList&lt;Phone&gt;( list.size() );</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        for ( PhoneResquestDTO phoneResquestDTO : list ) {</span>
+<span class="fc" id="L87">            list1.add( phoneResquestDTOToPhone( phoneResquestDTO ) );</span>
+        }
+
+<span class="fc" id="L90">        return list1;</span>
+    }
+
+    protected PhoneResponseDTO phoneToPhoneResponseDTO(Phone phone) {
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if ( phone == null ) {</span>
+<span class="nc" id="L95">            return null;</span>
+        }
+
+<span class="fc" id="L98">        PhoneResponseDTO phoneResponseDTO = new PhoneResponseDTO();</span>
+
+<span class="fc" id="L100">        phoneResponseDTO.setId( phone.getId() );</span>
+<span class="fc" id="L101">        phoneResponseDTO.setType( phone.getType() );</span>
+<span class="fc" id="L102">        phoneResponseDTO.setNumber( phone.getNumber() );</span>
+
+<span class="fc" id="L104">        return phoneResponseDTO;</span>
+    }
+
+    protected List&lt;PhoneResponseDTO&gt; phoneListToPhoneResponseDTOList(List&lt;Phone&gt; list) {
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L109">            return null;</span>
+        }
+
+<span class="fc" id="L112">        List&lt;PhoneResponseDTO&gt; list1 = new ArrayList&lt;PhoneResponseDTO&gt;( list.size() );</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        for ( Phone phone : list ) {</span>
+<span class="fc" id="L114">            list1.add( phoneToPhoneResponseDTO( phone ) );</span>
+        }
+
+<span class="fc" id="L117">        return list1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

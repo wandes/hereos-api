@@ -42,7 +42,7 @@ public class HeroController {
 	    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	@RequestMapping( method =  RequestMethod.POST, produces="application/json", consumes="application/json")
+	@RequestMapping( method =  RequestMethod.POST) //,produces="application/json", consumes="application/json")
 	public ResponseEntity<HeroResponseDTO> create(@RequestBody @Valid HeroRequestDTO heroDto) {
 		
 		HeroResponseDTO savedHero = heroService.create(heroDto);
@@ -65,8 +65,7 @@ public class HeroController {
 	    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	//@RequestMapping(method =  RequestMethod.GET, produces="application/json", consumes="application/json")
-	@GetMapping
+	@RequestMapping(method =  RequestMethod.GET)//, produces="application/json", consumes="application/json")
 	public ResponseEntity<List<HeroResponseDTO>> listAll(){
 		
 		log.info("Listando herois");
@@ -81,7 +80,7 @@ public class HeroController {
 	    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	@RequestMapping(value = "/{id}",method =  RequestMethod.GET, produces="application/json", consumes="application/json")
+	@RequestMapping(value = "/{id}",method =  RequestMethod.GET)//, produces="application/json", consumes="application/json")
 	public  ResponseEntity<HeroResponseDTO> findById(@PathVariable Long id) throws HeroNotFoundException{
 		log.info("Localizando heroi por Id" + id);
 		return ResponseEntity.ok().body(heroService.findById(id));
@@ -94,7 +93,7 @@ public class HeroController {
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	@RequestMapping(value = "/{id}",method =  RequestMethod.DELETE, produces="application/json", consumes="application/json")
+	@RequestMapping(value = "/{id}",method =  RequestMethod.DELETE) //,produces="application/json", consumes="application/json")
 	public  ResponseEntity delete(@PathVariable Long id) throws HeroNotFoundException{
 		heroService.delete(id);
 		log.info("Sucesso em excluir heroi com Id" + id);
@@ -108,7 +107,7 @@ public class HeroController {
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
 	
-	@RequestMapping(value = "/{id}",method =  RequestMethod.PUT, produces="application/json", consumes="application/json")
+	@RequestMapping(value = "/{id}",method =  RequestMethod.PUT)//,produces="application/json", consumes="application/json")
 	public  ResponseEntity<HeroResponseDTO> update(@PathVariable Long id, @RequestBody @Valid HeroRequestDTO heroDTO) throws HeroNotFoundException{
 		
 		HeroResponseDTO heroUpdate = heroService.update(heroDTO, id);
