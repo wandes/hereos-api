@@ -8,10 +8,11 @@ import br.com.hereos.dto.request.HeroRequestDTO;
 import br.com.hereos.dto.response.HeroResponseDTO;
 import br.com.hereos.model.Hero;
 
+
 @Mapper(componentModel = &quot;spring&quot;)
 public interface HeroMapper {
 	
-<span class="fc" id="L14">	HeroMapper INSTANCE = Mappers.getMapper(HeroMapper.class);</span>
+<span class="fc" id="L15">	HeroMapper INSTANCE = Mappers.getMapper(HeroMapper.class);</span>
 	 
 	@Mapping(target = &quot;birthDate&quot;, source = &quot;birthDate&quot;, dateFormat = &quot;dd-MM-yyyy&quot;)
 	Hero toModel(HeroRequestDTO heroRequestDTO);

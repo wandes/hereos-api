@@ -8,6 +8,7 @@ import br.com.hereos.dto.request.HeroRequestDTO;
 import br.com.hereos.dto.response.HeroResponseDTO;
 import br.com.hereos.model.Hero;
 
+
 @Mapper(componentModel = "spring")
 public interface HeroMapper {
 	

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TokenService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hereos-api</a> &gt; <a href="index.source.html" class="el_package">br.com.hereos.security</a> &gt; <span class="el_source">TokenService.java</span></div><h1>TokenService.java</h1><pre class="source lang-java linenums">package br.com.hereos.security;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import br.com.hereos.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@Service
+<span class="fc" id="L15">public class TokenService {</span>
+	
+	@Value(&quot;${security.jwt.expiration}&quot;)
+	private String expiration;
+	
+	@Value(&quot;${security.jwt.secret}&quot;)
+	private String secret;
+	
+	public String generateToken(Authentication authentication) {
+		
+<span class="nc" id="L25">		User user = (User) authentication.getPrincipal();</span>
+		
+<span class="nc" id="L27">		Date today = new Date();</span>
+<span class="nc" id="L28">		Date dateExpiration = new Date(today.getTime() + Long.parseLong(expiration));</span>
+
+<span class="nc" id="L30">		return Jwts.builder()</span>
+<span class="nc" id="L31">				.setIssuer(&quot;API Hereos&quot;)</span>
+<span class="nc" id="L32">				.setSubject(user.getId().toString())</span>
+<span class="nc" id="L33">				.setIssuedAt(today)</span>
+<span class="nc" id="L34">				.setExpiration(dateExpiration)</span>
+<span class="nc" id="L35">				.signWith(SignatureAlgorithm.HS256, secret)</span>
+<span class="nc" id="L36">				.compact();</span>
+	}
+
+	public boolean isTokenValid(String token) {
+		try {
+<span class="nc" id="L41">			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);</span>
+<span class="nc" id="L42">			return true;</span>
+<span class="nc" id="L43">		} catch (Exception e) {</span>
+<span class="nc" id="L44">			return false;</span>
+		}
+	}
+
+	public Long getIdUser(String token) {
+<span class="nc" id="L49">		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();</span>
+<span class="nc" id="L50">		return Long.parseLong(claims.getSubject());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

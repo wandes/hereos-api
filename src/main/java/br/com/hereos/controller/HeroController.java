@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +83,7 @@ public class HeroController {
 	public  ResponseEntity<HeroResponseDTO> findById(@PathVariable Long id) throws HeroNotFoundException{
 		log.info("Localizando heroi por Id" + id);
 		return ResponseEntity.ok().body(heroService.findById(id));
+
 	}
 	
 	@ApiOperation(value = "Exclui um heroi")
@@ -92,9 +92,10 @@ public class HeroController {
 			@ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 	})
-	
-	@RequestMapping(value = "/{id}",method =  RequestMethod.DELETE) //,produces="application/json", consumes="application/json")
+
+	@RequestMapping(value = "/{id}",method =  RequestMethod.DELETE) //,produces="application/json", consumes="application/json")	
 	public  ResponseEntity delete(@PathVariable Long id) throws HeroNotFoundException{
+
 		heroService.delete(id);
 		log.info("Sucesso em excluir heroi com Id" + id);
 		return ResponseEntity.noContent().build();

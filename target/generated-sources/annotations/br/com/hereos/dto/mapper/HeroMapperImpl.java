@@ -3,13 +3,9 @@ package br.com.hereos.dto.mapper;
 import br.com.hereos.dto.request.HeroRequestDTO;
 import br.com.hereos.dto.request.PhoneResquestDTO;
 import br.com.hereos.dto.response.HeroResponseDTO;
-import br.com.hereos.dto.response.HeroResponseDTO.HeroResponseDTOBuilder;
 import br.com.hereos.dto.response.PhoneResponseDTO;
-import br.com.hereos.dto.response.PhoneResponseDTO.PhoneResponseDTOBuilder;
 import br.com.hereos.model.Hero;
-import br.com.hereos.model.Hero.HeroBuilder;
 import br.com.hereos.model.Phone;
-import br.com.hereos.model.Phone.PhoneBuilder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-09-01T17:23:15-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.3.1300.v20210419-1022, environment: Java 16.0.2 (Oracle Corporation)"
+    date = "2021-09-02T20:41:51-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.11 (Ubuntu)"
 )
 @Component
 public class HeroMapperImpl implements HeroMapper {
@@ -31,19 +27,19 @@ public class HeroMapperImpl implements HeroMapper {
             return null;
         }
 
-        HeroBuilder hero = Hero.builder();
+        Hero hero = new Hero();
 
         if ( heroRequestDTO.getBirthDate() != null ) {
-            hero.birthDate( LocalDate.parse( heroRequestDTO.getBirthDate(), DateTimeFormatter.ofPattern( "dd-MM-yyyy" ) ) );
+            hero.setBirthDate( LocalDate.parse( heroRequestDTO.getBirthDate(), DateTimeFormatter.ofPattern( "dd-MM-yyyy" ) ) );
         }
-        hero.description( heroRequestDTO.getDescription() );
-        hero.heroIdentification( heroRequestDTO.getHeroIdentification() );
-        hero.heroName( heroRequestDTO.getHeroName() );
-        hero.id( heroRequestDTO.getId() );
-        hero.name( heroRequestDTO.getName() );
-        hero.phones( phoneResquestDTOListToPhoneList( heroRequestDTO.getPhones() ) );
+        hero.setId( heroRequestDTO.getId() );
+        hero.setName( heroRequestDTO.getName() );
+        hero.setHeroName( heroRequestDTO.getHeroName() );
+        hero.setHeroIdentification( heroRequestDTO.getHeroIdentification() );
+        hero.setDescription( heroRequestDTO.getDescription() );
+        hero.setPhones( phoneResquestDTOListToPhoneList( heroRequestDTO.getPhones() ) );
 
-        return hero.build();
+        return hero;
     }
 
     @Override
@@ -52,19 +48,19 @@ public class HeroMapperImpl implements HeroMapper {
             return null;
         }
 
-        HeroResponseDTOBuilder heroResponseDTO = HeroResponseDTO.builder();
+        HeroResponseDTO heroResponseDTO = new HeroResponseDTO();
 
         if ( heroDTO.getBirthDate() != null ) {
-            heroResponseDTO.birthDate( DateTimeFormatter.ofPattern( "dd-MM-yyyy" ).format( heroDTO.getBirthDate() ) );
+            heroResponseDTO.setBirthDate( DateTimeFormatter.ofPattern( "dd-MM-yyyy" ).format( heroDTO.getBirthDate() ) );
         }
-        heroResponseDTO.description( heroDTO.getDescription() );
-        heroResponseDTO.heroIdentification( heroDTO.getHeroIdentification() );
-        heroResponseDTO.heroName( heroDTO.getHeroName() );
-        heroResponseDTO.id( heroDTO.getId() );
-        heroResponseDTO.name( heroDTO.getName() );
-        heroResponseDTO.phones( phoneListToPhoneResponseDTOList( heroDTO.getPhones() ) );
+        heroResponseDTO.setId( heroDTO.getId() );
+        heroResponseDTO.setName( heroDTO.getName() );
+        heroResponseDTO.setHeroName( heroDTO.getHeroName() );
+        heroResponseDTO.setHeroIdentification( heroDTO.getHeroIdentification() );
+        heroResponseDTO.setDescription( heroDTO.getDescription() );
+        heroResponseDTO.setPhones( phoneListToPhoneResponseDTOList( heroDTO.getPhones() ) );
 
-        return heroResponseDTO.build();
+        return heroResponseDTO;
     }
 
     protected Phone phoneResquestDTOToPhone(PhoneResquestDTO phoneResquestDTO) {
@@ -72,13 +68,13 @@ public class HeroMapperImpl implements HeroMapper {
             return null;
         }
 
-        PhoneBuilder phone = Phone.builder();
+        Phone phone = new Phone();
 
-        phone.id( phoneResquestDTO.getId() );
-        phone.number( phoneResquestDTO.getNumber() );
-        phone.type( phoneResquestDTO.getType() );
+        phone.setId( phoneResquestDTO.getId() );
+        phone.setType( phoneResquestDTO.getType() );
+        phone.setNumber( phoneResquestDTO.getNumber() );
 
-        return phone.build();
+        return phone;
     }
 
     protected List<Phone> phoneResquestDTOListToPhoneList(List<PhoneResquestDTO> list) {
@@ -99,13 +95,13 @@ public class HeroMapperImpl implements HeroMapper {
             return null;
         }
 
-        PhoneResponseDTOBuilder phoneResponseDTO = PhoneResponseDTO.builder();
+        PhoneResponseDTO phoneResponseDTO = new PhoneResponseDTO();
 
-        phoneResponseDTO.id( phone.getId() );
-        phoneResponseDTO.number( phone.getNumber() );
-        phoneResponseDTO.type( phone.getType() );
+        phoneResponseDTO.setId( phone.getId() );
+        phoneResponseDTO.setType( phone.getType() );
+        phoneResponseDTO.setNumber( phone.getNumber() );
 
-        return phoneResponseDTO.build();
+        return phoneResponseDTO;
     }
 
     protected List<PhoneResponseDTO> phoneListToPhoneResponseDTOList(List<Phone> list) {

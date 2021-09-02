@@ -5,4 +5,5 @@
 /home/wandes/git/hereos-api/src/test/java/br/com/hereos/builder/HeroResponseDTOBuilder.java
 /home/wandes/git/hereos-api/src/test/java/br/com/hereos/builder/HeroRequestDTOBuilder.java
 /home/wandes/git/hereos-api/src/test/java/br/com/hereos/service/impl/HeroServiceImplTest.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/service/HeroServiceTest.java
 /home/wandes/git/hereos-api/src/test/java/br/com/hereos/utils/HeroUtils.java
