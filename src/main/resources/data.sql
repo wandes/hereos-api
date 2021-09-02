@@ -58,8 +58,7 @@ CREATE TABLE USER_PROFILES (
 INSERT INTO PROFILE(id, name) VALUES(999, 'Professor');
 INSERT INTO USER(id, name, email, password, profiles_id) VALUES(999, 'aizawa', 'aizawa@ua.com', '$2a$10$MZX4I/1emMsoDYCwz3rKiu0BemTbn.FA4JisBRB3Ui0XZmyKP8FGa', 999);
 INSERT INTO PHONE(id, number, type) VALUES(999, '55 11987541245','MOBILE');
-INSERT INTO HERO(id, name, hero_name, hero_identification, description, birth_date, phones_id) VALUES(999, '
-Izuku Midoriya', 'Deku', '011', 'futuro heroi numero 1', '2006-05-17', 999);
+INSERT INTO HERO(id, name, hero_name, hero_identification, description, birth_date, phones_id) VALUES(999, 'Izuku Midoriya', 'Deku', '011', 'futuro heroi numero 1','2006-05-17', 999);
 INSERT INTO HERO_PHONES(hero_id, phones_id) VALUES(999, 999);
 INSERT INTO USER_PROFILES(user_id, profiles_id) VALUES(999, 999);
 
