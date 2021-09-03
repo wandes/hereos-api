@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthenticateTokenFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hereos-api</a> &gt; <a href="index.source.html" class="el_package">br.com.hereos.security</a> &gt; <span class="el_source">AuthenticateTokenFilter.java</span></div><h1>AuthenticateTokenFilter.java</h1><pre class="source lang-java linenums">package br.com.hereos.security;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import br.com.hereos.model.User;
+import br.com.hereos.repository.UserRepository;
+
+public class AuthenticateTokenFilter extends OncePerRequestFilter {
+
+	private TokenService tokenService;
+
+	private UserRepository userRepository;
+
+<span class="fc" id="L23">	public AuthenticateTokenFilter(TokenService tokenService, UserRepository userRepository) {</span>
+<span class="fc" id="L24">		this.tokenService = tokenService;</span>
+<span class="fc" id="L25">		this.userRepository = userRepository;</span>
+<span class="fc" id="L26">	}</span>
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+
+<span class="nc" id="L32">		String token = recoverToken(request);</span>
+<span class="nc" id="L33">		boolean valid = tokenService.isTokenValid(token);</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">		if (valid) {</span>
+<span class="nc" id="L36">			autenticateClient(token);</span>
+		}
+
+<span class="nc" id="L39">		filterChain.doFilter(request, response);// segue o fluxo da requisicao</span>
+<span class="nc" id="L40">	}</span>
+
+	private void autenticateClient(String token) {
+<span class="nc" id="L43">		Long idUser = tokenService.getIdUser(token);</span>
+
+<span class="nc" id="L45">		User user = userRepository.findById(idUser).get();</span>
+		
+<span class="nc" id="L47">		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,</span>
+<span class="nc" id="L48">				user.getAuthorities());</span>
+		
+<span class="nc" id="L50">		SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+<span class="nc" id="L51">	}</span>
+
+	private String recoverToken(HttpServletRequest request) {
+<span class="nc" id="L54">		String token = request.getHeader(&quot;Authorization&quot;);</span>
+
+<span class="nc bnc" id="L56" title="All 6 branches missed.">		if (token == null || token.isEmpty() || !token.startsWith(&quot;Bearer &quot;)) {</span>
+<span class="nc" id="L57">			return null;</span>
+		}
+
+<span class="nc" id="L60">		return token.substring(7, token.length());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

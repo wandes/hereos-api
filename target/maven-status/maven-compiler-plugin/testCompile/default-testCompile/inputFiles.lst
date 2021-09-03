@@ -1,5 +1,9 @@
-C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\test\java\br\com\hereos\service\HeroServiceTest.java
-C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\test\java\br\com\hereos\HereosApiApplicationTests.java
-C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\test\java\br\com\hereos\utils\PhoneUtils.java
-C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\test\java\br\com\hereos\controller\HeroControllerTest.java
-C:\Users\jose.gomes\Documents\PortableGit\repo-local\ajustes\hereos-api\src\test\java\br\com\hereos\utils\HeroUtils.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/utils/JsonConvertionUtils.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/controller/HeroControllerTest.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/HereosApiApplicationTests.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/utils/PhoneUtils.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/builder/HeroResponseDTOBuilder.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/builder/HeroRequestDTOBuilder.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/service/impl/HeroServiceImplTest.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/service/HeroServiceTest.java
+/home/wandes/git/hereos-api/src/test/java/br/com/hereos/utils/HeroUtils.java

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfigurations.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hereos-api</a> &gt; <a href="index.source.html" class="el_package">br.com.hereos.security</a> &gt; <span class="el_source">SecurityConfigurations.java</span></div><h1>SecurityConfigurations.java</h1><pre class="source lang-java linenums">package br.com.hereos.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import br.com.hereos.repository.UserRepository;
+
+@EnableWebSecurity
+@Configuration
+<span class="fc" id="L22">public class SecurityConfigurations extends WebSecurityConfigurerAdapter{</span>
+	
+	@Value(value = &quot;${api.hereos.path}&quot;)
+	private String path;
+	
+	@Autowired
+	private AuthenticationService authenticationService;
+	
+	@Autowired
+	private TokenService tokenService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Override
+	@Bean
+	protected AuthenticationManager authenticationManager() throws Exception {
+<span class="fc" id="L39">		return super.authenticationManager();</span>
+	}
+	
+	//configuracoes de autenticacao (Login, controle de acesso)
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+<span class="fc" id="L46">		auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());</span>
+<span class="fc" id="L47">	}</span>
+	
+	//configuracoes de Autorizacao (url, quem pode acessar url, perfil de acesso)
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+<span class="fc" id="L52">		http.authorizeRequests()</span>
+<span class="fc" id="L53">		.antMatchers(HttpMethod.GET, path + &quot;/hero&quot;).permitAll()</span>
+<span class="fc" id="L54">		.antMatchers(HttpMethod.GET, path + &quot;/hero/*&quot;).permitAll()</span>
+<span class="fc" id="L55">		.antMatchers(HttpMethod.POST, path + &quot;/auth&quot;).permitAll()</span>
+<span class="fc" id="L56">		.anyRequest().authenticated()</span>
+		//.and().formLogin(); formulario que cria session
+<span class="fc" id="L58">		.and().csrf().disable()</span>
+<span class="fc" id="L59">		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)</span>
+<span class="fc" id="L60">		.and().addFilterBefore(new AuthenticateTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);//registrando o filtro, informando a ordem para executar os filtros</span>
+<span class="fc" id="L61">	}</span>
+	
+	//configuracoes de recursos estaticos (js, css, imagens, etc..)
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	
+<span class="fc" id="L67">	}</span>
+	
+//	public static void main(String[] args) {
+//		System.out.println(new BCryptPasswordEncoder().encode(&quot;aizawa&quot;));
+//	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

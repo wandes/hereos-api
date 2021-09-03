@@ -1,17 +1,27 @@
 spring:
   datasource:
+    initialization-mode: always
     driverClassName: org.h2.Driver
-    password: ''
-    url: jdbc:h2:file:~/hero;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:file:~/hero;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:hero_db
     username: sa
+    password: ''
     #initialization-mode: always
   h2:
     console:
       enabled: true
-      path: /h2
+      path: /h2-console
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: false
-
+api:
+  hereos:
+    path: /api/v1
+    
+security:
+  jwt:
+    expiration: 86400000
+    secret: A+X;fTJP&Pd,TD9dwVq(hsHX,ya^<wsD_UK7L+@=S;{'CydP]{v@}G'b>et;yz$*\yL5S8EJN:%P:X%H9>#nYLrX}@\s?CQcpspH,2emzBc!Q[V'AYa~uzF8WR~AUrMzxp/V$9([S9X#zj/CH('#]B_Hc+%fGhe27YB;^j4\Xk=Ju"Ap~_&<L;=!Z;!,2UP;!hF3P]j85#*`&T]/kB/W^6$v~u6qpejL>kY^f)sy4:qTq_Ec!-z!@aAp~sLKGU>$
+   

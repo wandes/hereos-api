@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.hereos.dto.mapper.HeroMapper;
@@ -17,12 +18,13 @@ import br.com.hereos.service.HeroService;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+//@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class HeroServiceImpl implements HeroService {
-
+	
+	@Autowired
 	private HeroRepository heroRespository;
 	
-	private HeroMapper heroMapper;
+	private HeroMapper heroMapper = HeroMapper.INSTANCE;
 
 	public List<HeroResponseDTO> listAll() {
 
@@ -63,14 +65,19 @@ public class HeroServiceImpl implements HeroService {
 		heroRespository.deleteById(id);
 	}
 
-	@Override
-	public Page<HeroResponseDTO> getPageable(org.springframework.data.domain.Pageable pageable) {
-		return null;
-	}
-
+//	@Override
+//	public Page<HeroResponseDTO> getPageable(org.springframework.data.domain.Pageable pageable) {
+//		return null;
+//	}
 
 	private Hero verifyIfExists(Long id) throws HeroNotFoundException {
 
 		return heroRespository.findById(id).orElseThrow(() -> new HeroNotFoundException(id));
+	}
+
+	@Override
+	public Page<HeroResponseDTO> getPageable(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
